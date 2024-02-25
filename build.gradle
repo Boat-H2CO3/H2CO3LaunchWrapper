@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'mio'
+group = 'h2co3'
 version = '1.0'
 
 repositories {
@@ -12,10 +12,36 @@ repositories {
 dependencies {
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
 jar {
     manifest {
         attributes(
-                'Main-Class': 'mio.Wrapper'
+                'Main-Class': 'h2co3.Wrapper'
         )
+    }
+}
+
+// 删除以下代码
+// tasks.register('build') {
+//     dependsOn 'jar'
+//     doLast {
+//         compileJava {
+//             options.compilerArgs += '-Xlint:none'
+//         }
+//     }
+// }
+
+// 添加以下代码
+tasks.named('build').configure {
+    dependsOn 'jar'
+    doLast {
+        compileJava {
+            options.compilerArgs += '-Xlint:none'
+        }
     }
 }
